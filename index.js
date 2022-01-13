@@ -21,37 +21,37 @@ async function run() {
         await client.connect();
         console.log('Connected to database');
 
-        const database = client.db('carMechanic');
-        const servicesCollection = database.collection('services');
+        const database = client.db('foodFanda');
+        const servicesCollection = database.collection('foods');
 
         // GET API
-        app.get('/services', async (req, res) => {
+        app.get('/foods', async (req, res) => {
             const cursor = servicesCollection.find({});
-            const services = await cursor.toArray();
-            res.send(services);
+            const foods = await cursor.toArray();
+            res.send(foods);
         })
-        // get single services
-        app.get('/services/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const service = await servicesCollection.findOne(query);
-            res.json(service);
-        })
+        // // get single foods
+        // app.get('/foods/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) };
+        //     const food = await servicesCollection.findOne(query);
+        //     res.json(food);
+        // })
 
         // POST API 
         // insert one
-        app.post('/services', async (req, res) => {
-            const service = req.body;
+        app.post('/foods', async (req, res) => {
+            const food = req.body;
 
-            const result = await servicesCollection.insertOne(service);
+            const result = await servicesCollection.insertOne(food);
             // console.log('hit the post api');
-            console.log(result);
+            console.log(food);
             res.json(result)
         })
 
         // Delete Api
         // delete one
-        app.delete('/services/:id', async (req, res) => {
+        app.delete('/foods/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await servicesCollection.deleteOne(query);
